@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://d3js.org/d3.v5.min.js"></script> 
+		<script src="https://x3dom.org/download/dev/x3dom-full.js"></script> 
+		<link rel="stylesheet" href="https://x3dom.org/download/dev/x3dom.css" />
+		
+	    <style>
+			#x3d {
+				border: none;
+			}
+	    </style>
+		
+		<!-- accesses all other necessary JS files -->
+		<script src='.\PatientsJSON.js'></script>
+		<script src='.\newDataStuff.js'></script>
+		<script src='.\SaundersChartBuilder.js'></script>
+		
+		<title>shape function</title>
+	</head>
+	
+	<body>
+		<div id="chartholder">
+		</div>
+			<script>
+				parseJSON();				
+				var chartHolder = d3.select("#chartholder");
+				var myChart = d3.x3dom.chart.barChartMultiSeries();
+				chartHolder.datum(data).call(myChart);
+				let d3X3dom = require("d3-x3dom");
+				function makeShape() {
+					chart.barChartMultiSeries(data);
+			}
+			
+			chartholder.setAttribute("width = window.innerWidth");
+			</script>
+	</body>
+</html>

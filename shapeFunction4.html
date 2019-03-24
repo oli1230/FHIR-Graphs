@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>		
+		<div id="links">
+			<script src="https://d3js.org/d3.v5.min.js"></script> 
+			<script src="https://x3dom.org/download/dev/x3dom-full.js"></script> 
+			<link rel="stylesheet" href="https://x3dom.org/download/dev/x3dom.css" />
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<script src='.\SinusitusJSON.js'></script>
+			<script src='.\newData4.js'></script>
+			<script src='.\SaundersFOURYou.js'></script>
+		</div>
+		
+	    <style>
+			#x3d {
+				border: none;
+			}
+	    </style>
+		
+		<title>shape function</title>
+		<input id="filename" type="text" length="100"/><t>File Name</t><br/>
+		<button onclick="download()">Download Graph</button>
+	</head>
+	
+	<body>
+		
+		<div id="chartholder"></div>
+			<!-- gets the JSON data and graphs it -->
+			<script>
+				parseJSON();				
+				var chartHolder = d3.select("#chartholder");
+				var myChart = d3.x3dom.chart.barChartMultiSeries();
+				chartHolder.datum(data).call(myChart);
+				let d3X3dom = require("d3-x3dom");
+				function makeShape() {
+					chart.barChartMultiSeries(data);
+				}
+			</script>
+			
+			<script>
+				document.getElementById("scene").innerHTML += "<transform translation='10 10 10'><shape onclick='download()'><appearance><material ambientIntensity='0.0933' diffuseColor='0.32 0.54 0.26'></material></appearance><text string='Save Graph' solid='true'><fontstyle family="'Times' 'Orbitron'" size='0.8'></fontstyle></text></shape></transform>";
+				document.getElementById('scene').innerHTML = "<transform translation='10 10 10'><shape><appearance><material diffuseColor='1 0 1'></material></appearance><box size='20 20 20'/></shape></transform>";
+			</script>
+			
+			<!-- downloads graph into file -->
+			<script>
+					function download() {
+					var data = "<!DOCTYPE html><html>" + document.getElementById("links").innerHTML + "<head></head><body><x3d><scene>" + document.getElementById("scene").innerHTML + "</scene></x3d></body></html>";
+					var filename = document.getElementById("filename").value + ".html";
+					var file = new Blob([data], {type: ".html"});
+					if (window.navigator.msSaveOrOpenBlob)
+						window.navigator.msSaveOrOpenBlob(file, filename);
+					else {
+						var a = document.createElement("a"),
+								url = URL.createObjectURL(file);
+						a.href = url;
+						a.download = filename;
+						document.body.appendChild(a);
+						a.click();
+						setTimeout(function() {
+							document.body.removeChild(a);
+							window.URL.revokeObjectURL(url);  
+						}, 0);
+					}
+				}
+			</script>
+	</body>
+</html>
